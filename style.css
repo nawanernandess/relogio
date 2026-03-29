@@ -1,5 +1,17 @@
 :root {
   --menu-width: 128px;
+
+  /* Colors */
+  --color-bg: #f5f5fa;
+  --color-white: #fff;
+  --color-primary: #7878aa;
+  --color-primary-muted: #9898be;
+  --color-primary-hover: rgba(120, 120, 170, 0.12);
+  --color-border: #dbdbe8;
+  --color-scrollbar: #c0c0d8;
+  --color-reset: #737375;
+  --shadow-dark: rgba(0, 0, 0, 0.35);
+  --shadow-light: rgba(0, 0, 0, 0.2);
 }
 
 *,
@@ -12,7 +24,7 @@
 }
 
 body {
-  background-color: #f5f5fa;
+  background-color: var(--color-bg);
   min-width: 1024px;
   height: 100vh;
 }
@@ -25,8 +37,8 @@ body {
   left: 0;
   height: 100%;
   width: var(--menu-width);
-  background-color: #f5f5fa;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+  background-color: var(--color-bg);
+  box-shadow: 0 0 15px var(--shadow-dark);
 }
 
 .nav-link {
@@ -35,13 +47,13 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  color: #7878aa;
+  color: var(--color-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover:not(.active) {
-  color: #7878aa;
-  background-color: rgba(120, 120, 170, 0.12);
+  color: var(--color-primary);
+  background-color: var(--color-primary-hover);
 }
 
 .menu button i {
@@ -50,8 +62,8 @@ body {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #7878aa;
+  color: var(--color-white);
+  background-color: var(--color-primary);
   border-radius: 0;
 }
 
@@ -83,11 +95,11 @@ body {
 
 .content-background {
   position: relative;
-  background-color: #fff;
+  background-color: var(--color-white);
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  border: 2px solid #dbdbe8;
+  border: 2px solid var(--color-border);
 }
 
 .content-time {
@@ -98,12 +110,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5fa;
+  background-color: var(--color-bg);
   width: 370px;
   height: 370px;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
-  border: 2px solid #dbdbe8;
+  box-shadow: 0 0 15px var(--shadow-dark);
+  border: 2px solid var(--color-border);
 }
 
 /* Clock Display */
@@ -112,7 +124,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: #7878aa;
+  color: var(--color-primary);
   font-family: fantasy;
   font-size: 64px;
   font-variant-numeric: tabular-nums;
@@ -124,35 +136,35 @@ body {
 }
 
 .hours-group .date {
-  color: #7878aa;
+  color: var(--color-primary);
   font-size: 12px;
   font-family: monospace;
 }
 
-/* Stopwatch Icon  */
+/* Stopwatch Icon */
 
 .content-icon {
   width: 100px;
   height: 24px;
-  background-color: #fff;
+  background-color: var(--color-white);
   position: absolute;
   top: 20px;
   right: 0;
   transform: rotate(40deg);
   border-radius: 50px;
-  border: 2px solid #dbdbe8;
+  border: 2px solid var(--color-border);
 }
 
 .content-icon::after {
   content: "";
-  background: #7878aa;
+  background: var(--color-primary);
   width: 80px;
   height: 14px;
   position: absolute;
   bottom: 0;
   right: 10px;
   border-radius: 8px 8px 0 0;
-  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 -5px 15px var(--shadow-dark);
 }
 
 /* Stopwatch Display */
@@ -160,7 +172,7 @@ body {
 .stopwatch {
   display: flex;
   gap: 4px;
-  color: #7878aa;
+  color: var(--color-primary);
   font-family: fantasy;
   font-size: 64px;
   font-variant-numeric: tabular-nums;
@@ -172,12 +184,12 @@ body {
 }
 
 .stopwatch .seconds {
-  color: #9898be;
+  color: var(--color-primary-muted);
   text-align: center;
 }
 
 .stopwatch .separator {
-  color: #9898be;
+  color: var(--color-primary-muted);
 }
 
 .reset {
@@ -185,7 +197,7 @@ body {
   bottom: 42px;
   font-family: monospace;
   font-size: 24px;
-  color: #737375;
+  color: var(--color-reset);
   cursor: pointer;
   background: none;
   border: none;
@@ -210,7 +222,7 @@ body {
 }
 
 .laps-wrapper::-webkit-scrollbar-thumb {
-  background-color: #c0c0d8;
+  background-color: var(--color-scrollbar);
   border-radius: 99px;
 }
 
@@ -221,7 +233,7 @@ body {
 }
 
 .laps-wrapper ol li {
-  color: #7878aa;
+  color: var(--color-primary);
   font-family: monospace;
   font-size: 18px;
   text-align: center;
@@ -242,8 +254,96 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #7878ab;
-  box-shadow: 0 0 15px #7878ab;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 15px var(--color-primary);
   border: none;
   cursor: pointer;
+}
+
+/* ========== Mobile (≤ 767px) ========== */
+
+@media (max-width: 767px) {
+  body {
+    min-width: 0;
+  }
+
+  /* Bottom navigation bar */
+  .menu {
+    flex-direction: row !important;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 -2px 10px var(--shadow-light);
+  }
+
+  .nav-link {
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .menu button i {
+    font-size: 20px;
+  }
+
+  /* Content area */
+  .tab-content {
+    padding-left: 0;
+    padding-bottom: 70px;
+  }
+
+  .content {
+    min-height: calc(100vh - 70px);
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content {
+    gap: 24px;
+  }
+
+  .content-stopwatch {
+    gap: 20px;
+  }
+
+  /* Clock face – scaled for mobile */
+  .content-background {
+    width: min(340px, 85vw);
+    height: min(340px, 85vw);
+  }
+
+  .content-time {
+    width: min(310px, calc(85vw - 30px));
+    height: min(310px, calc(85vw - 30px));
+  }
+
+  .hours-group {
+    font-size: 40px;
+  }
+
+  .hours-group .date {
+    font-size: 10px;
+  }
+
+  /* Stopwatch display */
+  .stopwatch {
+    font-size: 36px;
+    gap: 2px;
+  }
+
+  /* Stopwatch buttons */
+  .button-group {
+    gap: 40px;
+  }
+
+  /* Laps list */
+  .laps-wrapper {
+    width: 100%;
+    max-width: 320px;
+    height: 150px;
+  }
 }

@@ -1,14 +1,13 @@
-#⏱ Tempus
+# Tempus
 
 Relógio digital e cronômetro com interface minimalista.
 
----
-
 ## Preview
 
-falta adicionar print!
-
----
+<p align="center">
+  <img src="assets/images/preview-desktop.png" width="600"/>
+  <img src="assets/images/preview-mobile.png" width="220"/>
+</p>
 
 ## Funcionalidades
 
@@ -24,8 +23,6 @@ falta adicionar print!
 - **Registrar voltas** (laps) durante a contagem
 - **Resetar** o cronômetro e limpar as voltas registradas
 
----
-
 ## Tecnologias
 
 | Tecnologia | Uso |
@@ -35,8 +32,6 @@ falta adicionar print!
 | JavaScript (ES6+) | Lógica do relógio e cronômetro |
 | [Bootstrap 5](https://getbootstrap.com/) | Navegação em abas e utilitários |
 | [Font Awesome 6](https://fontawesome.com/) | Ícones do menu |
-
----
 
 ## Como Usar
 
@@ -49,8 +44,6 @@ A aba **Relógio** é exibida automaticamente ao abrir o projeto. A hora e a dat
 3. Pressione 🚩 para **registrar uma volta** (pode ser feito quantas vezes quiser)
 4. Pressione ⏸ para **pausar**
 5. Com o cronômetro pausado, pressione **Reset** para zerar e limpar as voltas
-
----
 
 ## Como Rodar o Projeto
 
@@ -67,8 +60,6 @@ Abra o arquivo index.html em qualquer navegador moderno.
 2. Clique com o botão direito em index.html
 3. Selecione "Open with Live Server"
 ```
-
----
 
 ## Estrutura do Projeto
 

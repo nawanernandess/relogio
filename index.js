@@ -24,6 +24,7 @@ function updateDate() {
 updateClock();
 updateDate();
 setInterval(updateClock, 1000);
+setInterval(updateDate, 60000);
 
 // Stopwatch
 

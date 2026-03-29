@@ -1,55 +1,69 @@
-* {
+:root {
+  --menu-width: 128px;
+}
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   user-select: none;
 }
 
 body {
   background-color: #f5f5fa;
-  min-width: 1024px !important;
+  min-width: 1024px;
   height: 100vh;
 }
 
-.d-none {
-  display: none !important;
-}
-
-.body-container {
-  padding: 50px 0;
-  position: relative;
-}
-
-.nav-link {
-  padding: 1rem !important;
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: #7878aa !important;
-}
-
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  color: #fff !important;
-  background-color: #7878aa !important;
-  border-radius: 0;
-}
+/* Navigation Menu */
 
 .menu {
   position: fixed;
+  top: 0;
+  left: 0;
   height: 100%;
-  width: 128px;
-  margin: -50px 0;
+  width: var(--menu-width);
   background-color: #f5f5fa;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+}
+
+.nav-link {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #7878aa;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover:not(.active) {
+  color: #7878aa;
+  background-color: rgba(120, 120, 170, 0.12);
 }
 
 .menu button i {
   font-size: 24px;
 }
 
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #7878aa;
+  border-radius: 0;
+}
+
+/* Content Layout */
+
+.tab-content {
+  padding-left: var(--menu-width);
+}
+
 .content {
-  height: 100%;
+  min-height: 100vh;
+  padding: 48px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +71,7 @@ body {
   gap: 48px;
 }
 
-.content .content-stopwatch {
+.content-stopwatch {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,47 +79,68 @@ body {
   gap: 32px;
 }
 
-.content .content-background {
+/* Clock Face */
+
+.content-background {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
+  background-color: #fff;
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  border: solid 2px #dbdbe8;
+  border: 2px solid #dbdbe8;
 }
 
-.content .content-background .content-time .hours-group {
+.content-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5fa;
+  width: 370px;
+  height: 370px;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+  border: 2px solid #dbdbe8;
+}
+
+/* Clock Display */
+
+.hours-group {
   display: flex;
   align-items: center;
   flex-direction: column;
   color: #7878aa;
   font-family: fantasy;
   font-size: 64px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
 }
 
-.content .content-background .content-time .hours-group .time {
-  width: 208px;
+.hours-group .time {
+  white-space: nowrap;
 }
 
-.content .content-background .content-time .hours-group .date {
+.hours-group .date {
   color: #7878aa;
   font-size: 12px;
   font-family: monospace;
 }
 
-.content .content-stopwatch .content-background .content-icon {
+/* Stopwatch Icon  */
+
+.content-icon {
   width: 100px;
   height: 24px;
-  background-color: white;
+  background-color: #fff;
   position: absolute;
   top: 20px;
   right: 0;
-  rotate: 40deg;
+  transform: rotate(40deg);
   border-radius: 50px;
-  border: solid 2px #dbdbe8;
+  border: 2px solid #dbdbe8;
 }
 
 .content-icon::after {
@@ -117,64 +152,89 @@ body {
   bottom: 0;
   right: 10px;
   border-radius: 8px 8px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px -5px 15px;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.35);
 }
 
-.content .content-background .content-time {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5fa;
-  width: 370px;
-  height: 370px;
-  border-radius: 100%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px;
-  border: solid 2px #dbdbe8;
-}
+/* Stopwatch Display */
 
-.content .content-stopwatch .content-background .content-time .stopwatch {
+.stopwatch {
   display: flex;
   gap: 4px;
   color: #7878aa;
   font-family: fantasy;
   font-size: 64px;
+  font-variant-numeric: tabular-nums;
 }
 
-.content
-  .content-stopwatch
-  .content-background
-  .content-time
-  .stopwatch
-  .seconds {
+.stopwatch span:not(.separator) {
+  min-width: 2ch;
+  text-align: center;
+}
+
+.stopwatch .seconds {
   color: #9898be;
-  text-align: end;
+  text-align: center;
 }
 
-.content .content-stopwatch .content-background .content-time .reset {
+.stopwatch .separator {
+  color: #9898be;
+}
+
+.reset {
   position: absolute;
   bottom: 42px;
   font-family: monospace;
   font-size: 24px;
   color: #737375;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
-.content ol {
+/* Laps List */
+
+.laps-wrapper {
+  width: 220px;
+  height: 200px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.laps-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.laps-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.laps-wrapper::-webkit-scrollbar-thumb {
+  background-color: #c0c0d8;
+  border-radius: 99px;
+}
+
+.laps-wrapper ol {
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.content ol li {
+.laps-wrapper ol li {
   color: #7878aa;
   font-family: monospace;
   font-size: 18px;
+  text-align: center;
 }
 
-.content .button-group {
+/* Stopwatch Buttons */
+
+.button-group {
   display: flex;
   gap: 64px;
 }
 
-.content .button-group .button {
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,6 +243,7 @@ body {
   height: 50px;
   border-radius: 50%;
   background-color: #7878ab;
-  box-shadow: #7878ab 0px 0px 15px;
+  box-shadow: 0 0 15px #7878ab;
   border: none;
+  cursor: pointer;
 }

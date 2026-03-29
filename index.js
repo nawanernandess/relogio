@@ -1,29 +1,19 @@
-const laps = document.getElementById("laps");
-let hour = 0;
-let minutes = 0;
-let seconds = 0;
-let milliseconds = 0;
-let cronometro;
+function pad(value) {
+  return value >= 10 ? String(value) : `0${value}`;
+}
 
-const timeNow = () => {
-  const time = document.getElementById("time");
-  let dateNow = new Date();
-  let hh = dateNow.getHours();
-  let mm = dateNow.getMinutes();
-  let ss = dateNow.getSeconds();
+// Clock
 
-  hh = formatValue(hh);
-  mm = formatValue(mm);
-  ss = formatValue(ss);
+const timeEl = document.getElementById("time");
+const dateEl = document.getElementById("date");
 
-  time.innerHTML = `${hh}:${mm}:${ss}`;
-};
+function updateClock() {
+  const now = new Date();
+  timeEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+}
 
-function date() {
-  const date = document.getElementById("date");
-  let newDate = new Date();
-
-  date.innerHTML = newDate.toLocaleDateString("pt-BR", {
+function updateDate() {
+  dateEl.textContent = new Date().toLocaleDateString("pt-BR", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -31,101 +21,91 @@ function date() {
   });
 }
 
-function start() {
-  cronometro = setInterval(() => {
-    timer();
-  }, 10);
+updateClock();
+updateDate();
+setInterval(updateClock, 1000);
 
-  document.getElementById("start").classList.add("d-none");
-  document.getElementById("reset").classList.add("d-none");
-  document.getElementById("flag").classList.remove("d-none");
-}
+// Stopwatch
 
-function pause() {
-  clearInterval(cronometro);
-  document.getElementById("start").classList.remove("d-none");
-  document.getElementById("reset").classList.remove("d-none");
-  document.getElementById("flag").classList.add("d-none");
-  document.getElementById("pause").classList.add("d-none");
-}
+const swHours   = document.getElementById("sw-hours");
+const swMinutes = document.getElementById("sw-minutes");
+const swSeconds = document.getElementById("sw-seconds");
+const swMs      = document.getElementById("sw-milliseconds");
+const lapsEl    = document.getElementById("laps");
 
-function lapRecord() {
-  const hh = formatValue(hour);
-  const mm = formatValue(minutes);
-  const ss = formatValue(seconds);
-  const ms = formatValue(String(milliseconds).slice(0, -1));
-  const lapsTime = `${hh}:${mm}:${ss}.${ms}`;
-  const lapsList = document.createElement("li");
+const btnStart = document.getElementById("start");
+const btnPause = document.getElementById("pause");
+const btnFlag  = document.getElementById("flag");
+const btnReset = document.getElementById("reset");
 
-  lapsList.textContent = lapsTime;
-  laps.appendChild(lapsList);
+let hours        = 0;
+let minutes      = 0;
+let seconds      = 0;
+let milliseconds = 0;
+let intervalId   = null;
 
-  document.getElementById("laps").classList.remove("d-none");
-}
+function tick() {
+  milliseconds += 10;
 
-function reset() {
-  hour = 0;
-  minutes = 0;
-  seconds = 0;
-  milliseconds = 0;
-
-  document.getElementById("hour").innerHTML = "00";
-  document.getElementById("minutes").innerHTML = "00";
-  document.getElementById("seconds").innerHTML = "00";
-  document.getElementById("milliseconds").innerHTML = "00";
-
-  document.getElementById("reset").classList.add("d-none");
-
-  const laps = document.getElementById("laps");
-  laps.classList.add("d-none");
-  while (laps.firstChild) {
-    laps.removeChild(laps.firstChild);
-  }
-}
-
-function timer() {
-  if ((milliseconds += 10) == 1000) {
+  if (milliseconds === 1000) {
     milliseconds = 0;
     seconds++;
   }
-
-  if (seconds == 60) {
+  if (seconds === 60) {
     seconds = 0;
     minutes++;
   }
-
-  if (minutes == 60) {
+  if (minutes === 60) {
     minutes = 0;
-    hour++;
+    hours++;
   }
 
-  if (milliseconds > 0 || seconds > 0 || hour > 0) {
-    document.getElementById("pause").classList.remove("d-none");
-  }
-
-  document.getElementById("hour").innerHTML = formatValue(hour);
-  document.getElementById("minutes").innerHTML = formatValue(minutes);
-  document.getElementById("seconds").innerHTML = formatValue(seconds);
-  document.getElementById("milliseconds").innerHTML = formatValue(
-    String(milliseconds).slice(0, -1)
-  );
+  swHours.textContent   = pad(hours);
+  swMinutes.textContent = pad(minutes);
+  swSeconds.textContent = pad(seconds);
+  swMs.textContent      = pad(Math.floor(milliseconds / 10));
 }
 
-function formatValue(value) {
-  return value >= 10 ? value : `0${value}`;
+function startStopwatch() {
+  intervalId = setInterval(tick, 10);
+  btnStart.classList.add("d-none");
+  btnReset.classList.add("d-none");
+  btnFlag.classList.remove("d-none");
+  btnPause.classList.remove("d-none");
 }
 
-function formatTime(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
-  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
-    2,
-    "0"
-  );
-  const seconds = String(totalSeconds % 60).padStart(2, "0");
-  return `${hours}:${minutes}:${seconds}`;
+function pauseStopwatch() {
+  clearInterval(intervalId);
+  btnStart.classList.remove("d-none");
+  btnReset.classList.remove("d-none");
+  btnFlag.classList.add("d-none");
+  btnPause.classList.add("d-none");
 }
 
-timeNow();
-setInterval(timeNow, 1000);
-date();
+function recordLap() {
+  const lapsTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(Math.floor(milliseconds / 10))}`;
+  const li = document.createElement("li");
+  li.textContent = lapsTime;
+  lapsEl.appendChild(li);
+  li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+function resetStopwatch() {
+  hours        = 0;
+  minutes      = 0;
+  seconds      = 0;
+  milliseconds = 0;
+
+  swHours.textContent   = "00";
+  swMinutes.textContent = "00";
+  swSeconds.textContent = "00";
+  swMs.textContent      = "00";
+
+  btnReset.classList.add("d-none");
+  lapsEl.innerHTML = "";
+}
+
+btnStart.addEventListener("click", startStopwatch);
+btnPause.addEventListener("click", pauseStopwatch);
+btnFlag.addEventListener("click",  recordLap);
+btnReset.addEventListener("click", resetStopwatch);

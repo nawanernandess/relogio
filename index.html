@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tempus: relógio e cronômetro de alta precisão</title>
-    <link rel="shortcut icon" href="./icons/clock.png" type="image/x-icon" />
+    <title>Tempus: relógio e cronômetro</title>
+    <link rel="shortcut icon" href="./assets/icons/clock.png" type="image/x-icon" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -28,29 +28,29 @@
       >
         <button
           class="nav-link active"
-          id="v-pills-home-tab"
+          id="v-pills-clock-tab"
           data-bs-toggle="pill"
-          data-bs-target="#v-pills-home"
+          data-bs-target="#v-pills-clock"
           type="button"
           role="tab"
-          aria-controls="v-pills-home"
+          aria-controls="v-pills-clock"
           aria-selected="true"
         >
-          <i class="fa-solid fa-clock"></i>
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
           Relógio
         </button>
 
         <button
           class="nav-link"
-          id="v-pills-profile-tab"
+          id="v-pills-stopwatch-tab"
           data-bs-toggle="pill"
-          data-bs-target="#v-pills-profile"
+          data-bs-target="#v-pills-stopwatch"
           type="button"
           role="tab"
-          aria-controls="v-pills-profile"
+          aria-controls="v-pills-stopwatch"
           aria-selected="false"
         >
-          <i class="fa-solid fa-stopwatch"></i>
+          <i class="fa-solid fa-stopwatch" aria-hidden="true"></i>
           Cronômetro
         </button>
       </div>
@@ -58,9 +58,9 @@
       <div class="tab-content" id="v-pills-tabContent">
         <div
           class="tab-pane fade show active"
-          id="v-pills-home"
+          id="v-pills-clock"
           role="tabpanel"
-          aria-labelledby="v-pills-home-tab"
+          aria-labelledby="v-pills-clock-tab"
         >
           <div class="content">
             <div class="content-background">
@@ -76,9 +76,9 @@
 
         <div
           class="tab-pane fade"
-          id="v-pills-profile"
+          id="v-pills-stopwatch"
           role="tabpanel"
-          aria-labelledby="v-pills-profile-tab"
+          aria-labelledby="v-pills-stopwatch-tab"
         >
           <div class="content">
             <div class="content-stopwatch">
@@ -86,37 +86,38 @@
                 <div class="content-icon"></div>
                 <div class="content-time">
                   <div class="stopwatch">
-                    <span class="w-65" id="hour">00</span>:<span
-                      class="w-65"
-                      id="minutes"
+                    <span id="sw-hours">00</span>:<span
+                      id="sw-minutes"
                       >00</span
-                    >:<span class="w-65 seconds" id="seconds">00</span>
-                    <span style="color: #9898be">.</span>
-                    <span class="w-65 seconds" id="milliseconds">00</span>
+                    >:<span class="seconds" id="sw-seconds">00</span>
+                    <span class="separator">.</span>
+                    <span class="seconds" id="sw-milliseconds">00</span>
                   </div>
 
-                  <span id="reset" class="d-none reset" onclick="reset()">
+                  <button id="reset" class="d-none reset" type="button">
                     Reset
-                  </span>
+                  </button>
                 </div>
               </div>
 
               <div class="button-group">
-                <button id="start" class="button" onclick="start()">
-                  <img width="16px" height="16px" src="./icons/play.png" />
+                <button id="start" class="button" type="button" aria-label="Iniciar">
+                  <img width="16" height="16" src="./assets/icons/play.png" alt="Iniciar" />
                 </button>
 
-                <button id="pause" class="button d-none" onclick="pause()">
-                  <img width="16px" height="16px" src="./icons/pause.png" />
+                <button id="pause" class="button d-none" type="button" aria-label="Pausar">
+                  <img width="16" height="16" src="./assets/icons/pause.png" alt="Pausar" />
                 </button>
 
-                <button id="flag" class="button d-none" onclick="lapRecord()">
-                  <img width="16px" height="16px" src="./icons/flag.png" />
+                <button id="flag" class="button d-none" type="button" aria-label="Registrar volta">
+                  <img width="16" height="16" src="./assets/icons/flag.png" alt="Volta" />
                 </button>
               </div>
             </div>
 
-            <ol class="d-none" id="laps"></ol>
+            <div class="laps-wrapper">
+              <ol id="laps"></ol>
+            </div>
           </div>
         </div>
       </div>

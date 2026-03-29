@@ -1,4 +1,4 @@
-# Tempus
+# Chronora
 
 Relógio digital e cronômetro com interface minimalista.
 
@@ -64,7 +64,7 @@ Abra o arquivo index.html em qualquer navegador moderno.
 ## Estrutura do Projeto
 
 ```
-tempus/
+chronora/
 ├── assets/
 │   └── icons/
 │       ├── clock.png       # Favicon e ícone do menu
